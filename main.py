@@ -1,15 +1,15 @@
 import sys
 
 from random import choice
-from PyQt5 import uic  # Импортируем uic
+from Ui import Ui_MainWindow
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)  # Загружаем дизайн
+        self.setupUi(self)
         self.do_paint = False
         self.pushButton.clicked.connect(self.run)
         # Обратите внимание: имя элемента такое же как в QTDesigner
@@ -22,7 +22,7 @@ class MyWidget(QMainWindow):
             qp.end()
 
     def draw_circle(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        qp.setBrush(QColor(choice(range(0, 256)), choice(range(0, 256)), choice(range(0, 256))))
         size = choice(range(25, 300))
         qp.drawEllipse(self.width() // 2 - size // 2, self.height() // 2 - size // 2, size, size)
         # Имя элемента совпадает с objectName в QTDesigner
